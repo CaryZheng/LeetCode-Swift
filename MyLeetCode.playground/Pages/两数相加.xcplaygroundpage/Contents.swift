@@ -28,10 +28,6 @@ public class ListNode {
 
 class Solution {
     func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
-        guard let l1 = l1, let l2 = l2 else {
-            return nil
-        }
-        
         var resultListNode: ListNode?
         var resultListNodeFirst: ListNode?
         var lastDividerNum = 0
