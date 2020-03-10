@@ -32,22 +32,12 @@ class Solution {
             return nil
         }
         
-        let count1 = getListCount(l1)
-        let count2 = getListCount(l2)
-        
-        var firstList = l1
-        var secondList = l2
-        if count1 < count2 {
-            firstList = l2
-            secondList = l1
-        }
-        
         var resultListNode: ListNode?
         var resultListNodeFirst: ListNode?
         var lastDividerNum = 0
         
-        var targetList1Node: ListNode? = firstList
-        var targetList2Node: ListNode? = secondList
+        var targetList1Node: ListNode? = l1
+        var targetList2Node: ListNode? = l2
         while (true) {
             if nil == targetList1Node
                 && nil == targetList2Node {
@@ -75,26 +65,6 @@ class Solution {
         }
         
         return resultListNodeFirst
-    }
-    
-    private func getListCount(_ listNode: ListNode) -> Int {
-        var count = 0
-        
-        var node: ListNode? = listNode
-        if nil != node {
-            count += 1
-        }
-        
-        while true {
-            node = node?.next
-            if nil != node {
-                count += 1
-            } else {
-                break
-            }
-        }
-        
-        return count
     }
 }
 
