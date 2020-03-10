@@ -36,21 +36,22 @@ class Solution {
         var targetList2Node: ListNode? = l2
         while (true) {
             if nil == targetList1Node
-                && nil == targetList2Node {
+                && nil == targetList2Node
+                && 0 == lastDividerNum {
                 break
             }
             
             let value1 = ((nil == targetList1Node) ? 0 : targetList1Node!.val)
             let value2 = ((nil == targetList2Node) ? 0 : targetList2Node!.val)
             
-            let sum = value1 + value2
+            let sum = value1 + value2 + lastDividerNum
             let otherNum = sum % 10
             
             if nil == resultListNode {
                 resultListNode = ListNode(otherNum)
                 resultListNodeFirst = resultListNode
             } else {
-                resultListNode!.next = ListNode(otherNum+lastDividerNum)
+                resultListNode!.next = ListNode(otherNum)
                 resultListNode = resultListNode?.next
             }
             
