@@ -27,33 +27,65 @@ import Foundation
 
 class Solution {
     func lengthOfLongestSubstring(_ s: String) -> Int {
-        var finalResultStr: String?
+        var finalResultStr = ""
         
+        var charSet = Set<Character>()
         let charCount = s.count
         for firstCharStartLocation in 0..<charCount {
             var resultStr: String?
             
+            if finalResultStr.count >= (charCount - firstCharStartLocation) {
+                break
+            }
+            
+            let fromIndex = s.index(s.startIndex, offsetBy: firstCharStartLocation)
+            var tempStrCount: Int?
+            var minStr = ""
             for i in firstCharStartLocation..<charCount {
-                // 获取子串
-                let fromIndex = s.index(s.startIndex, offsetBy: firstCharStartLocation)
-                let toIndex = s.index(s.startIndex, offsetBy: charCount-i+firstCharStartLocation)
+                let toLocation = charCount - i + firstCharStartLocation
+                let offset = toLocation - firstCharStartLocation
+                if finalResultStr.count > offset {
+                    break
+                }
                 
+//                print("___1___tempStrCount = \(String(describing: tempStrCount)), offset = \(offset)")
+                
+                if nil != tempStrCount {
+                    if tempStrCount! <= offset {
+//                        print(">>>2___tempStrCount = \(tempStrCount!), offset = \(offset)")
+                        if nil == resultStr {
+                            resultStr = minStr
+                        }
+                        
+                        break
+                    }
+                }
+                
+                // 获取子串
+                let toIndex = s.index(s.startIndex, offsetBy: toLocation)
                 let subStr = String(s[fromIndex..<toIndex])
                 
 //                print("subStr = \(subStr)")
                 
                 // 遍历子串中的所有字符
                 var isRepeat = false
-                var charSet = Set<Character>()
+                charSet.removeAll()
+                var tempCharCount = 0
+                minStr = ""
                 for char in subStr {
                     if !charSet.contains(char) {
                         charSet.insert(char)
-//                        print("\(char)")
+//                        print("char = \(char)")
+                        
+                        tempCharCount += 1
+                        minStr.append(char)
                     } else {
                         isRepeat = true
                         break
                     }
                 }
+                
+                tempStrCount = tempCharCount
                 
                 if !isRepeat {
                     resultStr = subStr
@@ -63,25 +95,24 @@ class Solution {
             }
             
             if nil != resultStr && resultStr!.count > 0 {
-                if nil == finalResultStr
-                || finalResultStr!.count < resultStr!.count {
-                    finalResultStr = resultStr
+                if finalResultStr.count < resultStr!.count {
+                    finalResultStr = resultStr!
                 }
             }
         }
         
-        if nil == finalResultStr || 0 == finalResultStr?.count {
-            return 0
-        }
-        
-//        print("final resultStr = \(finalResultStr!)")
-        return finalResultStr!.count
+//        print("final resultStr = \(finalResultStr)")
+        return finalResultStr.count
     }
 }
 
-let count = Solution().lengthOfLongestSubstring("rrqqnboidcietehzgazxzqycqlkbqqbjiuzvvpfarognspmbqoargytwjfxaxblfvldscivuybhrrvujjuartvoecngzoshjfke")
+let count = Solution().lengthOfLongestSubstring("pwwkew")
 print("final result count = \(count)")
 
 //: [Next](@next)
+
+
+
+
 
 
